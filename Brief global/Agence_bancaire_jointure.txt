@@ -1,0 +1,89 @@
+                          #### LES JOINTURES ENTRE LES DIFFERENTES TABLES#####
+
+INNER JOIN
+
+SELECT *
+FROM A
+INNER JOIN B ON A.key = B.key
+
+SELECT * FROM Personne
+INNER JOIN Comptes ON Personne.id = Comptes.numero_identification ;
+
++----+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+| id | nom        | adresse       | telephone | numero_identification | date_ouverture | type                           | telephone | id_personne | numero_agence |
++----+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+|  1 | Cendrillon | marndjandafak |  68246271 |                     1 | 2022-01-06     | le compte émettant             |  68246271 |           1 |             1 |
+|  2 | Liliane    | marndjandafak |  68246271 |                     2 | 2022-05-06     | le compte revevant l operation |  98246271 |           2 |             2 |
+|  3 | Millore    | gassi         |  68246271 |                     3 | 2022-01-18     | le compte émettant             |  65246271 |           3 |             3 |
+|  4 | Olivia     | walia         |  68246271 |                     4 | 2022-03-06     | le compte revevant l operation |  68246271 |           4 |             4 |
+|  5 | Gwladys    | goudji        |  68246271 |                     5 | 2022-04-06     | le compte émettant             |  68246271 |           5 |             5 |
+|  6 | Sylvain    | marndjandafak |  68246271 |                     6 | 2022-11-06     | le compte revevant l operation |  68246271 |           6 |             6 |
++----+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+6 rows in set (0,00 sec)
+
+
+SELECT * FROM Agence
+INNER JOIN Comptes ON Agence.numero = Comptes.numero_identification ;
+
++--------+------------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+| numero | nom              | adresse       | telephone | numero_identification | date_ouverture | type                           | telephone | id_personne | numero_agence |
++--------+------------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+|      1 | societe generale | marndjandafak |  68246271 |                     1 | 2022-01-06     | le compte émettant             |  68246271 |           1 |             1 |
+|      2 | la tchadienne    | marndjandafak |  68246271 |                     2 | 2022-05-06     | le compte revevant l operation |  98246271 |           2 |             2 |
+|      3 | uba              | gassi         |  68246271 |                     3 | 2022-01-18     | le compte émettant             |  65246271 |           3 |             3 |
+|      4 | ecobank          | walia         |  68246271 |                     4 | 2022-03-06     | le compte revevant l operation |  68246271 |           4 |             4 |
+|      5 | bsic             | goudji        |  68246271 |                     5 | 2022-04-06     | le compte émettant             |  68246271 |           5 |             5 |
+|      6 | beac             | marndjandafak |  68246271 |                     6 | 2022-11-06     | le compte revevant l operation |  68246271 |           6 |             6 |
++--------+------------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+6 rows in set (0,00 sec
+
+
+SELECT *
+FROM Personne
+LEFT JOIN Opération ON Personne.id = Opération.numero_identification;
+
++----+------------+---------------+-----------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+| id | nom        | adresse       | telephone | numero_identification | date       | lieu          | type                                | num_ident_compte | id_personne |
++----+------------+---------------+-----------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+|  1 | Cendrillon | marndjandafak |  68246271 |                     1 | 2022-01-01 | goudji        | retrait par carte bancaire          |                1 |           1 |
+|  2 | Liliane    | marndjandafak |  68246271 |                     2 | 2022-02-01 | marndjandafak | versement de salaire                |                2 |           2 |
+|  3 | Millore    | gassi         |  68246271 |                     3 | 2022-03-01 | gassi         | encaissement ou paiement de chèque  |                3 |           3 |
+|  4 | Olivia     | walia         |  68246271 |                     4 | 2022-04-01 | goudji        | virement de compte en compte        |                4 |           4 |
+|  5 | Gwladys    | goudji        |  68246271 |                     5 | 2022-05-01 | walia         | retrait par carte bancaire          |                5 |           5 |
+|  6 | Sylvain    | marndjandafak |  68246271 |                     6 | 2022-06-01 | goudji        | versement de salaire                |                6 |           6 |
++----+------------+---------------+-----------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+6 rows in set (0,00 sec)
+
+
+SELECT *
+FROM Comptes
+RIGHT JOIN Opération ON Comptes.numero_identification = Opération.numero_identification;    jointure externe pour la table a droite
+
++-----------------------+----------------+--------------------------------+-----------+-------------+---------------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+| numero_identification | date_ouverture | type                           | telephone | id_personne | numero_agence | numero_identification | date       | lieu          | type                                | num_ident_compte | id_personne |
++-----------------------+----------------+--------------------------------+-----------+-------------+---------------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+|                     1 | 2022-01-06     | le compte émettant             |  68246271 |           1 |             1 |                     1 | 2022-01-01 | goudji        | retrait par carte bancaire          |                1 |           1 |
+|                     2 | 2022-05-06     | le compte revevant l operation |  98246271 |           2 |             2 |                     2 | 2022-02-01 | marndjandafak | versement de salaire                |                2 |           2 |
+|                     3 | 2022-01-18     | le compte émettant             |  65246271 |           3 |             3 |                     3 | 2022-03-01 | gassi         | encaissement ou paiement de chèque  |                3 |           3 |
+|                     4 | 2022-03-06     | le compte revevant l operation |  68246271 |           4 |             4 |                     4 | 2022-04-01 | goudji        | virement de compte en compte        |                4 |           4 |
+|                     5 | 2022-04-06     | le compte émettant             |  68246271 |           5 |             5 |                     5 | 2022-05-01 | walia         | retrait par carte bancaire          |                5 |           5 |
+|                     6 | 2022-11-06     | le compte revevant l operation |  68246271 |           6 |             6 |                     6 | 2022-06-01 | goudji        | versement de salaire                |                6 |           6 |
++-----------------------+----------------+--------------------------------+-----------+-------------+---------------+-----------------------+------------+---------------+-------------------------------------+------------------+-------------+
+6 rows in set (0,00 sec)
+
+
+SELECT *
+FROM Personne
+RIGHT JOIN Comptes ON Personne.id =  Comptes.numero_identification;
+
++------+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+| id   | nom        | adresse       | telephone | numero_identification | date_ouverture | type                           | telephone | id_personne | numero_agence |
++------+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+|    1 | Cendrillon | marndjandafak |  68246271 |                     1 | 2022-01-06     | le compte émettant             |  68246271 |           1 |             1 |
+|    2 | Liliane    | marndjandafak |  68246271 |                     2 | 2022-05-06     | le compte revevant l operation |  98246271 |           2 |             2 |
+|    3 | Millore    | gassi         |  68246271 |                     3 | 2022-01-18     | le compte émettant             |  65246271 |           3 |             3 |
+|    4 | Olivia     | walia         |  68246271 |                     4 | 2022-03-06     | le compte revevant l operation |  68246271 |           4 |             4 |
+|    5 | Gwladys    | goudji        |  68246271 |                     5 | 2022-04-06     | le compte émettant             |  68246271 |           5 |             5 |
+|    6 | Sylvain    | marndjandafak |  68246271 |                     6 | 2022-11-06     | le compte revevant l operation |  68246271 |           6 |             6 |
++------+------------+---------------+-----------+-----------------------+----------------+--------------------------------+-----------+-------------+---------------+
+6 rows in set (0,00 sec)
